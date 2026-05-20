@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cardápio Completo | La Petsserie Londrina</title>
+  <meta name="description" content="Cardápio completo da La Petsserie: menus naturais, petiscos artesanais, confeitaria pet, kit degustação e bolos para cachorro em Londrina." />
+  <style>
+    :root{
+      --bg:#fffaf4; --text:#3f2f25; --muted:#6f5847; --brand:#b97954; --brand-dark:#9f6242; --rose-accent:#d8a6a6; --rose-soft:#f7e8e6;
+      --soft:#f4eadf; --line:#ead9c8; --rose:#f5e2cf; --green:#eef3e3; --white:#fff;
+      --shadow:0 14px 35px rgba(63,47,37,.09);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter, Arial, Helvetica, sans-serif;background:var(--bg);color:var(--text)}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:1180px;margin:0 auto;padding:0 20px}
+    header{position:sticky;top:0;z-index:20;background:rgba(255,250,244,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px}
+    .brand-title{font-family:Georgia,serif;font-weight:800;font-size:24px;margin:0}
+    .brand-sub{font-size:12px;color:#8a6b55;margin:2px 0 0}
+    nav.desktop{display:flex;gap:18px;font-size:14px;font-weight:700;align-items:center}
+    nav.desktop a:hover{color:var(--brand)}
+    .actions{display:flex;align-items:center;gap:8px}
+    button,.btn{border:0;border-radius:999px;padding:12px 18px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.2s}
+    .btn-primary{background:linear-gradient(135deg,var(--brand),#d69aa3);color:#fff;box-shadow:0 10px 24px rgba(185,121,84,.22);border:none}.btn{transition:.25s ease}.btn:hover{transform:translateY(-2px)}.btn-outline{background:#fff;border:1px solid rgba(185,121,84,.22);box-shadow:0 6px 18px rgba(0,0,0,.05)}
+    .btn-primary:hover{background:var(--brand-dark);transform:translateY(-1px)}
+    .btn-outline{background:#fff;border:1px solid #d8b99d;color:var(--text)}
+    .btn-outline:hover{background:var(--soft)}
+    .btn-light{background:#f0d7bd;color:var(--text)}
+    .menu-toggle{display:none;background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px}
+    .mobile-nav{display:none;border-top:1px solid var(--line);padding:12px 20px;background:var(--bg)}
+    .mobile-nav.open{display:grid;gap:8px}
+    .mobile-nav a{background:#fff;border-radius:16px;padding:12px 14px;font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+    section{padding:64px 0}
+    .hero{padding:70px 0 48px;position:relative;overflow:hidden}
+    .hero:before{content:"";position:absolute;right:-120px;top:80px;width:330px;height:330px;background:#f0d7bd;border-radius:50%;filter:blur(55px);opacity:.75}
+    .hero:after{content:"";position:absolute;left:-140px;bottom:20px;width:330px;height:330px;background:#e7efd9;border-radius:50%;filter:blur(55px);opacity:.85}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:center;position:relative;z-index:1}
+    .pill{display:inline-flex;border-radius:999px;background:linear-gradient(135deg,#fff,#f7e8e6);border:1px solid rgba(216,166,166,.35);padding:9px 14px;font-size:14px;font-weight:800;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+    h1{font-family:Georgia,serif;font-size:58px;line-height:1.04;margin:18px 0 0;letter-spacing:-.04em}
+    h2{font-family:Georgia,serif;font-size:44px;line-height:1.08;margin:10px 0 0;letter-spacing:-.03em}
+    h3{margin:0;font-size:22px}
+    p{line-height:1.65}
+    .lead{font-size:18px;color:var(--muted);max-width:620px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:30px;padding:24px;box-shadow:0 4px 18px rgba(0,0,0,.04)}
+    .card.soft{background:var(--soft);border:0}
+    .hero-photo{border-radius:34px;overflow:hidden;background:white;box-shadow:var(--shadow);padding:10px}
+    .hero-photo img{height:560px;width:100%;object-fit:cover;border-radius:26px}
+    .benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .section-title{margin-bottom:30px;max-width:760px}
+    .small{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.18em;color:var(--brand);margin:0}
+    .muted{color:var(--muted)}
+    .cards-4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .cards-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .image-card{overflow:hidden;padding:0}
+    .image-card img{height:230px;width:100%;object-fit:cover}
+    .image-card .body{padding:22px}
+    .tag{display:inline-flex;border-radius:999px;padding:6px 11px;color:white;font-size:12px;font-weight:900;margin-bottom:12px}
+    .price-row{display:flex;justify-content:space-between;border:1px solid var(--line);border-radius:999px;padding:8px 12px;margin-top:8px;font-weight:900;font-size:14px}
+    select,input{width:100%;border:1px solid var(--line);border-radius:999px;padding:11px 12px;background:#fff;font-weight:800;color:var(--text);outline:none}
+    .form-2{display:grid;grid-template-columns:1fr .7fr;gap:8px;margin-top:12px}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+    .mobile-quick-links{display:none}
+    .kit-number{width:40px;height:40px;border-radius:16px;color:white;display:flex;align-items:center;justify-content:center;font-weight:900;margin-bottom:10px}
+    .quick-nutrition{padding:42px 0}
+    .quick-box{display:grid;grid-template-columns:1.25fr .75fr;gap:24px;align-items:center;background:linear-gradient(135deg,#fff,#fff7f5);border:1px solid rgba(216,166,166,.25);border-radius:34px;padding:30px;box-shadow:var(--shadow)}
+    .kit-section{background:var(--soft)}
+    .kit-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+    .kit-item{border:1px solid var(--line);border-radius:22px;padding:12px;background:#fff}
+    .product{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 4px 15px rgba(0,0,0,.035)}
+    .product img{height:210px;width:100%;object-fit:cover;border-radius:18px;margin-bottom:14px}
+    .cart-item{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid var(--line);border-radius:20px;padding:14px;margin-bottom:10px;background:var(--bg)}
+    .qty{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .qty button{padding:6px 10px;background:#fff;border:1px solid var(--line)}
+    .remove{color:#9f3344;background:#fff;border:1px solid var(--line);padding:8px 10px}
+    .dark{background:var(--text);color:#fff;border-radius:34px;text-align:center;padding:42px}
+    .dark p{color:#f5e2cf}
+    footer{text-align:center;border-top:1px solid var(--line);padding:30px 20px;color:var(--muted)}
+    @media(max-width:980px){
+      nav.desktop{display:none}
+      .menu-toggle{display:inline-flex}
+      .grid-2,.quick-box{grid-template-columns:1fr}
+      .benefits,.cards-4,.cards-3,.cards-2,.kit-grid{grid-template-columns:1fr}
+      h1{font-size:39px}
+      h2{font-size:31px}
+      section{padding:46px 0}
+      .topbar{padding:12px 16px}
+      .brand-title{font-size:19px}
+      .brand-sub{max-width:150px}
+      .cart-item{align-items:flex-start;flex-direction:column}
+      .actions .btn-primary{padding:10px 12px;font-size:13px}
+      .hero-photo img{height:390px}
+      .image-card img,.product img{height:260px}
+
+      body{background:linear-gradient(180deg,#fffaf4 0%,#fff8f0 55%,#fffaf4 100%)}
+      .container{padding:0 18px}
+      .topbar{padding:12px 16px}
+      header{box-shadow:0 2px 16px rgba(63,47,37,.05)}
+      .brand-title{font-size:21px;line-height:1.05}
+      .brand-sub{font-size:12px;max-width:170px;line-height:1.35}
+      .actions .btn-primary{padding:11px 14px;font-size:14px;box-shadow:0 6px 15px rgba(185,121,84,.18)}
+      .menu-toggle{width:44px;height:44px;justify-content:center;color:var(--brand);font-weight:900}
+      .mobile-nav{padding:12px 18px 16px}
+      .mobile-nav.open{grid-template-columns:1fr 1fr}
+      .mobile-nav a{border:1px solid var(--line);box-shadow:0 8px 20px rgba(63,47,37,.04);text-align:center}
+      .hero{padding:26px 0 30px}
+      .hero:before{right:-150px;top:120px;width:260px;height:260px}
+      .hero:after{left:-160px;bottom:160px;width:260px;height:260px}
+      .grid-2{gap:24px}
+      .hero .grid-2{display:flex;flex-direction:column}
+      .hero-photo{order:2;border-radius:30px;padding:8px;margin-top:8px}
+      .hero-photo img{height:360px;border-radius:24px;object-position:center}
+      .hero h1{font-size:34px;line-height:1.02;letter-spacing:-.035em;margin-top:16px}
+      .lead{font-size:16px;line-height:1.55;margin-bottom:0}
+      .pill{font-size:13px;padding:8px 12px}
+      .hero-actions{display:grid;grid-template-columns:1fr;gap:10px;margin-top:20px}
+      .hero-actions .btn{width:100%;padding:15px 18px;font-size:16px}
+      .mobile-quick-links{display:none!important}
+      .mobile-quick-links a{background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px 10px;text-align:center;font-weight:900;color:var(--text);box-shadow:0 8px 22px rgba(63,47,37,.05)}
+      section{padding:40px 0}
+      .benefits{gap:12px}
+      .benefits .card{padding:18px 20px;border-radius:24px}
+      .benefits .card h3{font-size:20px}
+      .benefits .card p{margin-bottom:0;line-height:1.45}
+      .quick-nutrition{padding:24px 0 34px}
+      .quick-box{padding:22px;border-radius:28px;gap:16px}
+      .quick-box h2{font-size:28px}
+      .quick-box .card{padding:20px;border-radius:24px}
+      h2{font-size:30px}
+      h3{font-size:20px}
+      .section-title{margin-bottom:22px}
+      .cards-4,.cards-3,.cards-2{gap:16px}
+      .image-card{border-radius:28px}
+      .image-card img{height:310px}
+      .image-card .body{padding:20px}
+      .product{border-radius:26px;padding:16px}
+      .product img{height:300px;border-radius:20px}
+      .price-row{padding:10px 14px}
+      .form-2{grid-template-columns:1fr 76px}
+      select,input{padding:12px}
+      .kit-grid{gap:12px}
+      .kit-item{border-radius:24px;padding:16px}
+      .kit-number{width:44px;height:44px;border-radius:18px}
+      .dark{border-radius:28px;padding:30px 22px}
+      footer{padding:26px 18px}
+
+      .quick-nutrition{padding-top:18px}
+    }
+  
+    .page-mobile-tabs{display:none}
+    .mobile-page-title{display:none}
+    @media(max-width:980px){
+      header{background:rgba(255,250,244,.98);box-shadow:0 3px 20px rgba(63,47,37,.06)}
+      .topbar{padding:12px 16px;align-items:center}
+      .brand-title{font-size:20px;letter-spacing:-.02em}
+      .brand-sub{font-size:11.5px;max-width:155px;line-height:1.28}
+      .actions{gap:7px}
+      .actions .btn-primary{font-size:13px;padding:10px 12px;border-radius:999px;white-space:nowrap}
+      .menu-toggle{width:43px;height:43px;border-radius:999px;background:#fff;border:1px solid var(--line);box-shadow:0 6px 18px rgba(63,47,37,.05)}
+      .mobile-nav{padding:12px 16px 16px;background:linear-gradient(180deg,#fffaf4,#fff7f5);border-top:1px solid rgba(216,166,166,.25)}
+      .mobile-nav.open{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+      .mobile-nav a{padding:12px 10px;border-radius:18px;text-align:center;border:1px solid rgba(216,166,166,.28);background:#fff;box-shadow:0 8px 24px rgba(63,47,37,.05);font-size:14px}
+      .mobile-nav a:last-child{grid-column:1 / -1;background:linear-gradient(135deg,var(--brand),#d69aa3);color:#fff;border:0}
+      .page-mobile-tabs{display:none!important}
+      .page-mobile-tabs a{border-radius:18px;padding:12px 10px;background:#fff;border:1px solid rgba(216,166,166,.25);text-align:center;font-weight:900;box-shadow:0 8px 22px rgba(63,47,37,.05)}
+      .mobile-page-title{display:block;margin:14px 0 0;color:var(--brand);font-weight:900;text-transform:uppercase;letter-spacing:.12em;font-size:12px}
+      .hero{padding:28px 0 34px}
+      .hero .grid-2{display:flex;flex-direction:column;gap:22px}
+      .hero h1{font-size:33px;line-height:1.03;margin-top:12px}
+      .hero .lead{font-size:16px;line-height:1.56}
+      .hero-photo{border-radius:30px;padding:8px;background:#fff;box-shadow:0 18px 36px rgba(63,47,37,.08)}
+      .hero-photo img{height:390px;border-radius:24px;object-fit:cover;object-position:center}
+      .hero-actions{display:grid;grid-template-columns:1fr;gap:10px;margin-top:20px}
+      .hero-actions .btn{width:100%;padding:15px 18px;font-size:15.5px}
+      .mobile-quick-links{grid-template-columns:1fr 1fr}
+      section{padding:42px 0}
+      .cards-4,.cards-3,.cards-2,.benefits,.kit-grid{grid-template-columns:1fr!important;gap:16px}
+      .card,.product{border-radius:26px}
+      .product img,.image-card img{height:300px;border-radius:20px}
+      .image-card{border-radius:28px}
+      .image-card .body{padding:20px}
+      .quick-box{border-radius:30px;padding:22px}
+      .dark{border-radius:30px;padding:32px 22px}
+      h2{font-size:30px;line-height:1.1}
+      h3{font-size:20px}
+    }
+
+</style>
+</head>
+<body>
+<header>
+  <div class="topbar container">
+    <div>
+      <a href="index.html"><p class="brand-title">La Petsserie</p></a>
+      <p class="brand-sub">menus naturais, petiscos e confeitaria pet</p>
+    </div>
+    <nav class="desktop">
+      <a href="index.html">Home</a>
+      <a href="cardapio.html">Cardápio</a>
+      <a href="consulta.html">Consulta</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="https://www.instagram.com/la_petsserie/" target="_blank" rel="noreferrer">Instagram</a>
+    </nav>
+    <div class="actions">
+      <a href="https://wa.me/5543988192974?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20La%20Petsserie%20e%20gostaria%20de%20fazer%20um%20pedido." class="btn btn-primary">WhatsApp</a>
+      <button class="menu-toggle" onclick="toggleMobileMenu()">☰</button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobileNav">
+    <a onclick="toggleMobileMenu()" href="index.html">Home</a>
+    <a onclick="toggleMobileMenu()" href="cardapio.html">Cardápio</a>
+    <a onclick="toggleMobileMenu()" href="consulta.html">Consulta Veterinária</a>
+    <a onclick="toggleMobileMenu()" href="sobre.html">Sobre</a>
+    <a href="https://www.instagram.com/la_petsserie/" target="_blank" rel="noreferrer">Instagram</a>
+    <a href="https://wa.me/5543988192974?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20La%20Petsserie%20e%20gostaria%20de%20fazer%20um%20pedido.">Pedir pelo WhatsApp</a>
+  </nav>
+</header>
+<main>
+<section class="hero">
+  <div class="container grid-2">
+    <div>
+      <span class="pill">Cardápio completo</span>
+      <h1>Menus naturais, petiscos e confeitaria pet em um só lugar.</h1>
+      <p class="lead">Conheça os produtos da La Petsserie e faça seu pedido pelo WhatsApp.</p>
+<div class="mobile-quick-links" style="display:grid">
+        <a href="#menus">Menus</a><a href="#petiscos">Petiscos</a><a href="#confeitaria">Confeitaria</a><a href="#kit">Kit</a>
+      </div>
+    </div>
+    <div class="hero-photo"><img src="images/menus-hero.png" alt="Cardápio La Petsserie"></div>
+  </div>
+</section>
+<section id="menus"><div class="container"><p class="small">Menus naturais</p><h2>Refeições naturais para cães.</h2><div class="cards-4" id="menusGrid"></div></div></section>
+<section id="petiscos" style="background:var(--soft)"><div class="container"><p class="small">Petiscos</p><h2>Biscoitos artesanais — R$ 22,90</h2><div class="cards-3" id="petiscosGrid" style="margin-top:24px"></div></div></section>
+<section id="confeitaria">
+<div class="container">
+<p class="small">Confeitaria pet</p>
+<h2>Cupcakes, bolos e kit festa.</h2>
+<p class="muted">Doces e bolos pet para comemorar com carinho, feitos de forma artesanal e pensados para a saúde do seu pet.</p>
+<div class="cards-3" style="margin-top:24px;margin-bottom:24px">
+  <div class="product"><img src="images/cupcake-pet.png" alt="Cupcake pet La Petsserie"><h3>Cupcakes artesanais</h3><p class="muted">Opções tradicionais e personalizadas.</p></div>
+  <div class="product"><img src="images/bolo-pet.png" alt="Bolo pet La Petsserie"><h3>Bolos para comemorar</h3><p class="muted">Bolos delicados para datas especiais.</p></div>
+  <div class="product"><img src="images/cupcake-foto-pet.png" alt="Cupcake foto pet La Petsserie"><h3>Personalização Foto Pet</h3><p class="muted">Cupcakes e bolos com a carinha do pet.</p></div>
+</div>
+<div class="cards-3" id="confeitariaGrid" style="margin-top:14px"></div>
+</div>
+</section>
+<section id="kit" style="background:var(--soft)">
+<div class="container">
+<p class="small">Kit Degustação</p>
+<h2>Escolha como prefere experimentar</h2>
+<div class="cards-2" style="margin-top:24px">
+<div class="card" style="border:1px solid rgba(185,121,84,.18)">
+<p class="small">Kit Degustação Clássico</p>
+<h2>R$ 49,90</h2>
+<p class="muted">1 Campestre, 2 Dourado, 2 Raízes e 2 Lago. Valor promocional do kit pronto.</p>
+<a class="btn btn-primary" style="width:100%" href="https://wa.me/5543988192974?text=Olá! Gostaria de pedir o Kit Degustação Clássico da La Petsserie.">Pedir Kit Clássico</a>
+</div>
+<div class="card" style="border:1px solid rgba(216,166,166,.25);background:linear-gradient(135deg,#fff,#fff7f5)">
+<p class="small">Monte seu kit</p>
+<h2>Kit Personalizado</h2>
+<p class="muted">Escolha os sabores e monte seu kit degustação do seu jeito.</p>
+<a class="btn btn-outline" style="width:100%" href="index.html#montar-kit">Personalizar Kit</a>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer>
+  <b>La Petsserie — Alimentação Natural, Confeitaria Pet e Consulta Nutricional Veterinária em Londrina/PR</b>
+  <p>WhatsApp: (43) 98819-2974 • Instagram: @la_petsserie • Atendimento de segunda a sábado, 9h às 19h.</p>
+</footer>
+<script>
+function toggleMobileMenu(){document.getElementById("mobileNav").classList.toggle("open");}
+function wpp(text){return "https://wa.me/5543988192974?text="+encodeURIComponent(text);}
+
+const menus=[
+{name:"Menu Campestre",subtitle:"Carne com legumes",prices:{"100g":6.9,"300g":16.9,"500g":18.9},image:"images/menu-campestre.png",color:"#9f3344"},
+{name:"Menu Dourado",subtitle:"Frango com legumes",prices:{"100g":5.9,"300g":14.9,"500g":16.9},image:"images/menu-dourado.png",color:"#d89522"},
+{name:"Menu Raízes",subtitle:"Mandioca com carne de porco",prices:{"100g":6.5,"300g":16.5,"500g":18.5},image:"images/menu-raizes.png",color:"#2f7d50"},
+{name:"Menu do Lago",subtitle:"Tilápia com batata doce",prices:{"100g":9.9,"300g":21.9,"500g":31.9},image:"images/menu-lago.png",color:"#8fb9d8"}];
+const petiscos=[
+{name:"Biscoito de Frango com Cenoura e Açafrão",image:"images/petisco-frango.png"},
+{name:"Biscoito de Batata Doce com Frango",image:"images/petisco-abacaxi.png"},
+{name:"Biscoito Refresco de Melancia",image:"images/petisco-melancia.png"},
+{name:"Biscoito Refresco de Abacaxi",image:"images/petisco-abobora.png"},
+{name:"Biscoito de Banana com Especiarias",image:"images/petisco-banana.png"},
+{name:"Biscoito de Abóbora com Coco",image:"images/petiscos-geral.png"},
+{name:"Biscoito Mix La Petsserie",image:"images/petisco-batata.png"}];
+const confeitaria=[
+{name:"Cupcake Tradicional",price:"R$ 15,90",image:"images/cupcake-pet.png"},
+{name:"Cupcake Foto Pet",price:"R$ 19,90",image:"images/cupcake-foto-pet.png"},
+{name:"Cupcake Nome Pet",price:"R$ 17,90",image:"images/cupcake-foto-pet.png"},
+{name:"Cupcake Mini",price:"R$ 8,90",image:"images/cupcake-pet.png"},
+{name:"Bolo Jardim Encantado",price:"R$ 39,90",image:"images/bolo-pet.png"},
+{name:"Bolo Petisco Premium",price:"R$ 49,90",image:"images/bolo-pet.png"},
+{name:"Bolo Foto Pet",price:"R$ 49,90",image:"images/cupcake-foto-pet.png"},
+{name:"Brigadeiro Pet",price:"R$ 4,00",image:"images/bolo-pet.png"},
+{name:"Beijinho Pet",price:"R$ 4,00",image:"images/bolo-pet.png"},
+{name:"Coxinha Pet",price:"R$ 4,00",image:"images/cupcake-pet.png"}
+];
+document.getElementById("menusGrid").innerHTML=menus.map(m=>`<div class="card image-card"><img src="${m.image}"><div class="body"><span class="tag" style="background:${m.color}">Menu natural</span><h3>${m.name}</h3><p class="muted">${m.subtitle}</p>${Object.entries(m.prices).map(([s,p])=>`<div class="price-row"><span>${s}</span><span>R$ ${p.toFixed(2).replace(".",",")}</span></div>`).join("")}<a class="btn btn-outline" style="width:100%;margin-top:12px" href="${wpp("Olá! Gostaria de pedir "+m.name+".")}">Pedir</a></div></div>`).join("");
+document.getElementById("petiscosGrid").innerHTML=petiscos.map(p=>`<div class="product"><img src="${p.image}"><h3>${p.name}</h3><p style="color:var(--brand);font-weight:900">R$ 22,90</p><a class="btn btn-outline" style="width:100%" href="${wpp("Olá! Gostaria de pedir "+p.name+".")}">Pedir</a></div>`).join("");
+document.getElementById("confeitariaGrid").innerHTML=confeitaria.map(p=>`<div class="product"><h3>${p.name}</h3><p style="color:var(--brand);font-weight:900">${p.price}</p><a class="btn btn-outline" style="width:100%" href="${wpp("Olá! Gostaria de pedir "+p.name+".")}">Pedir</a></div>`).join("");
+
+</script>
+</body>
+</html>

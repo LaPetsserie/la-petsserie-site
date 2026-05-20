@@ -9,6 +9,21 @@ section{padding:64px 0}.hero{padding:68px 0 52px;position:relative;overflow:hidd
 select,input{width:100%;border:1px solid var(--line);border-radius:999px;padding:12px;background:#fff;font-weight:800;color:var(--text)}.kit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.kit-choice{border:1px solid var(--line);background:#fff;border-radius:24px;padding:16px;display:flex;flex-direction:column;gap:10px}.kit-choice button{width:100%}.counter{font-family:Georgia,serif;font-size:42px;font-weight:900}.selected-list{border:1px dashed var(--line);border-radius:22px;padding:18px;background:#fffaf4}.cart-row{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:10px 0}
 .dark{background:var(--text);color:#fff;border-radius:34px;text-align:center;padding:42px}.dark p{color:#f5e2cf}footer{text-align:center;border-top:1px solid var(--line);padding:30px 20px;color:var(--muted)}
 @media(max-width:980px){.desktop{display:none}.menu-toggle{display:inline-flex;align-items:center;justify-content:center}.topbar{padding:12px 16px}.brand-title{font-size:20px}.brand-sub{font-size:11.5px;max-width:155px;line-height:1.28}.actions .btn-primary{font-size:13px;padding:10px 12px;white-space:nowrap}.grid-2{display:flex;flex-direction:column;gap:24px}.hero{padding:30px 0 38px}.hero-photo{border-radius:30px;padding:8px;width:100%}.hero-photo img{height:360px;border-radius:24px;object-position:center}h1{font-size:34px;line-height:1.03;margin-top:12px}h2{font-size:30px}h3{font-size:20px}.lead{font-size:16px;line-height:1.55}.hero-actions{display:grid!important;grid-template-columns:1fr;gap:10px}.hero-actions .btn{width:100%;padding:15px 18px}.cards-4,.cards-3,.cards-2,.kit-grid{grid-template-columns:1fr}.card,.product,.image-card{border-radius:26px}.image-card img,.product img{height:300px}.image-card .body{padding:20px}section{padding:42px 0}.dark{border-radius:30px;padding:32px 22px}}
+
+.floating-cart{position:fixed;right:18px;bottom:18px;z-index:80;border-radius:999px;background:linear-gradient(135deg,var(--brand),#d69aa3);color:#fff;border:0;box-shadow:0 14px 35px rgba(63,47,37,.22);padding:14px 18px;font-weight:900}
+.cart-panel{position:fixed;right:18px;bottom:82px;width:min(390px,calc(100vw - 36px));max-height:72vh;overflow:auto;z-index:81;background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:0 22px 60px rgba(63,47,37,.22);padding:20px;display:none}
+.cart-panel.open{display:block}
+.cart-item{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding:10px 0}
+.cart-item small{color:var(--muted)}
+.cart-controls{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.cart-controls button{padding:5px 9px;border:1px solid var(--line);background:#fff;color:var(--text)}
+.qty-input{max-width:88px;text-align:center}
+.add-row{display:grid;grid-template-columns:1fr 85px;gap:8px;margin-top:12px}
+.add-row-3{display:grid;grid-template-columns:1fr 85px 90px;gap:8px;margin-top:12px}
+.cart-empty{border:1px dashed var(--line);border-radius:18px;padding:18px;text-align:center;color:var(--muted);background:#fffaf4}
+.recipe-box{background:linear-gradient(135deg,#fff,#fff7f5);border:1px solid rgba(216,166,166,.35);border-radius:34px;padding:28px;box-shadow:var(--shadow)}
+@media(max-width:980px){.floating-cart{right:14px;bottom:14px;padding:13px 16px}.cart-panel{right:12px;bottom:76px;width:calc(100vw - 24px);border-radius:26px}.add-row,.add-row-3{grid-template-columns:1fr}.qty-input{max-width:100%}}
+
 </style></head><body><header>
   <div class="topbar container">
     <div><a href="index.html"><p class="brand-title">La Petsserie</p></a><p class="brand-sub">menus naturais, petiscos e confeitaria pet</p></div>
@@ -29,11 +44,57 @@ select,input{width:100%;border:1px solid var(--line);border-radius:999px;padding
 </header><main>
 <section class="hero"><div class="container grid-2"><div><span class="pill">Petiscos Naturais</span><h1>Biscoitos artesanais para recompensar com saúde.</h1><p class="lead">Petiscos 100% naturais, sem conservantes artificiais e sem corantes artificiais. Perfeitos para mimar ou treinar seu pet.</p><a class="btn btn-primary" href="#petiscos">Ver sabores</a></div><div class="hero-photo"><img src="images/petisco-frango.png" alt="Petiscos naturais La Petsserie"></div></div></section>
 <section id="petiscos"><div class="container"><p class="small">Sabores</p><h2>Biscoitos — R$ 22,90</h2><div class="cards-3" id="petiscosGrid" style="margin-top:24px"></div></div></section>
-</main><footer><b>La Petsserie — Alimentação Natural, Petiscos, Confeitaria Pet e Consulta Nutricional Veterinária em Londrina/PR</b><p>WhatsApp: (43) 98819-2974 • Instagram: @la_petsserie • Segunda a sábado, 9h às 19h.</p></footer><script>
+</main>
+
+<div id="cartPanel" class="cart-panel">
+  <h3>Sacolinha</h3>
+  <p class="muted" style="margin-top:0">Revise seu pedido antes de enviar pelo WhatsApp.</p>
+  <div id="cartItems"></div>
+  <h3 style="margin-top:14px">Total: <span id="cartTotal">R$ 0,00</span></h3>
+  <button class="btn btn-primary" style="width:100%;margin-top:10px" onclick="sendCart()">Finalizar no WhatsApp</button>
+  <button class="btn btn-outline" style="width:100%;margin-top:8px" onclick="clearCart()">Limpar pedido</button>
+</div>
+<button class="floating-cart" onclick="toggleCart()">🛍️ <span id="cartCount">0</span></button>
+<footer><b>La Petsserie — Alimentação Natural, Petiscos, Confeitaria Pet e Consulta Nutricional Veterinária em Londrina/PR</b><p>WhatsApp: (43) 98819-2974 • Instagram: @la_petsserie • Segunda a sábado, 9h às 19h.</p></footer><script>
 function toggleMobileMenu(){document.getElementById('mobileNav').classList.toggle('open')}
 function wpp(text){return 'https://wa.me/5543988192974?text='+encodeURIComponent(text)}
 function brl(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
 
 const petiscos=[['Biscoito de Frango com Cenoura e Açafrão','images/petisco-frango.png'],['Biscoito de Batata Doce com Frango','images/petisco-abacaxi.png'],['Biscoito Refresco de Melancia','images/petisco-melancia.png'],['Biscoito Refresco de Abacaxi','images/petisco-abobora.png'],['Biscoito de Banana com Especiarias','images/petisco-banana.png'],['Biscoito de Abóbora com Coco','images/petiscos-geral.png'],['Biscoito Mix La Petsserie','images/petisco-batata.png']];
-document.getElementById('petiscosGrid').innerHTML=petiscos.map(p=>`<div class="product"><img src="${p[1]}" alt="${p[0]}"><h3>${p[0]}</h3><p style="color:var(--brand);font-weight:900">R$ 22,90</p><a class="btn btn-outline" style="width:100%" href="${wpp('Olá! Gostaria de pedir '+p[0]+'.')}">Pedir</a></div>`).join('');
+document.getElementById('petiscosGrid').innerHTML=petiscos.map(p=>`<div class="product"><img src="${p[1]}" alt="${p[0]}"><h3>${p[0]}</h3><p style="color:var(--brand);font-weight:900">R$ 22,90</p><div class="add-row"><input class="qty-input" id="qty-pet-${p[0].replaceAll(' ','-')}" type="number" min="1" value="1"><button class="btn btn-outline" onclick="addToCart('${p[0]}',22.9,'',document.getElementById('qty-pet-${p[0].replaceAll(' ','-')}').value)">Adicionar</button></div></div>`).join('');
+
+function getCart(){try{return JSON.parse(localStorage.getItem('laPetsserieCart')||'[]')}catch(e){return []}}
+function saveCart(cart){localStorage.setItem('laPetsserieCart',JSON.stringify(cart));renderCart();}
+function addToCart(name, price, detail, qty){
+  qty=Math.max(1,Number(qty)||1);
+  const key=name+'|'+(detail||'');
+  let cart=getCart();
+  const found=cart.find(i=>i.key===key);
+  if(found){found.qty+=qty}else{cart.push({key:key,name:name,price:Number(price)||0,detail:detail||'',qty:qty})}
+  saveCart(cart);
+  var panel=document.getElementById('cartPanel'); if(panel) panel.classList.add('open');
+}
+function updateCart(key,delta){saveCart(getCart().map(i=>i.key===key?Object.assign({},i,{qty:i.qty+delta}):i).filter(i=>i.qty>0))}
+function removeCart(key){saveCart(getCart().filter(i=>i.key!==key))}
+function clearCart(){saveCart([])}
+function toggleCart(){var p=document.getElementById('cartPanel'); if(p) p.classList.toggle('open')}
+function renderCart(){
+  const cart=getCart();
+  const count=cart.reduce((t,i)=>t+i.qty,0);
+  const total=cart.reduce((t,i)=>t+i.price*i.qty,0);
+  var ce=document.getElementById('cartCount'); if(ce) ce.textContent=count;
+  var te=document.getElementById('cartTotal'); if(te) te.textContent=brl(total);
+  var ie=document.getElementById('cartItems'); if(!ie)return;
+  if(!cart.length){ie.innerHTML='<div class="cart-empty">Sua sacolinha está vazia.</div>';return}
+  ie.innerHTML=cart.map(i=>`<div class="cart-item"><div><b>${i.name}</b><br><small>${i.detail||''}</small><br><small>${brl(i.price)} cada</small></div><div class="cart-controls"><button onclick="updateCart('${i.key}',-1)">−</button><b>${i.qty}</b><button onclick="updateCart('${i.key}',1)">+</button><button onclick="removeCart('${i.key}')">remover</button></div></div>`).join('');
+}
+function sendCart(){
+  const cart=getCart();
+  if(!cart.length){alert('Sua sacolinha está vazia.');return}
+  const total=cart.reduce((t,i)=>t+i.price*i.qty,0);
+  const text=cart.map((i,idx)=>`${idx+1}. ${i.qty}x ${i.name}${i.detail?' - '+i.detail:''} - ${brl(i.price*i.qty)}`).join('\\n');
+  window.open(wpp(`Olá! Gostaria de fazer este pedido na La Petsserie:\\n${text}\\nTotal aproximado: ${brl(total)}\\n\\nPode me passar as opções de entrega/retirada e pagamento?`),'_blank');
+}
+document.addEventListener('DOMContentLoaded',renderCart);
+
 </script></body></html>

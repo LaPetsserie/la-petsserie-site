@@ -29,12 +29,50 @@ select,input{width:100%;border:1px solid var(--line);border-radius:999px;padding
 </header><main>
 <section class="hero"><div class="container grid-2"><div><span class="pill">Confeitaria Pet</span><h1>Cupcakes, bolos e comemorações para pets.</h1><p class="lead">Confeitaria pet artesanal para celebrar com carinho, estética premium e ingredientes pensados para o seu pet.</p><a class="btn btn-primary" href="#produtos">Ver produtos</a></div><div class="hero-photo"><img src="images/cupcake-pet.png" alt="Confeitaria pet La Petsserie"></div></div></section>
 <section><div class="container"><div class="cards-3"><div class="product"><img src="images/cupcake-pet.png" alt="Cupcakes artesanais"><h3>Cupcakes artesanais</h3><p class="muted">Opções tradicionais e personalizadas.</p></div><div class="product"><img src="images/bolo-pet.png" alt="Bolos para pets"><h3>Bolos para comemorar</h3><p class="muted">Bolos delicados para datas especiais.</p></div><div class="product"><img src="images/cupcake-foto-pet.png" alt="Foto Pet"><h3>Personalização Foto Pet</h3><p class="muted">Cupcakes e bolos com a carinha do pet.</p></div></div></div></section>
-<section id="produtos" style="background:var(--soft)"><div class="container"><p class="small">Produtos</p><h2>Cardápio da confeitaria</h2><div class="cards-3" id="confGrid" style="margin-top:24px"></div></div></section>
+<section id="kits-festa" style="background:var(--soft)">
+  <div class="container">
+    <div class="section-title">
+      <p class="small">Kit Festa</p>
+      <h2>Comemorações completas para o seu pet.</h2>
+      <p class="muted">Kits pensados para celebrar com carinho, estética premium e decoração personalizada seguindo o tema do bolo.</p>
+    </div>
+    <div class="cards-3">
+      <div class="card rose">
+        <p class="small">Kit Festa Mini</p>
+        <h3>R$ 65,90</h3>
+        <p class="muted"><b>Perfeito para comemorações intimistas.</b></p>
+        <p class="muted">Inclui 1 bolo personalizado + 4 cupcakes mini personalizados de acordo com o tema do bolo.</p>
+        <a class="btn btn-primary" style="width:100%" href="https://wa.me/5543988192974?text=Ol%C3%A1%21%20Gostaria%20de%20montar%20um%20Kit%20Festa%20Mini%20da%20La%20Petsserie.">Pedir Kit Festa Mini</a>
+      </div>
+      <div class="card rose">
+        <p class="small">Kit Festa Docinhos</p>
+        <h3>R$ 60,90</h3>
+        <p class="muted"><b>Uma comemoração delicada e cheia de carinho.</b></p>
+        <p class="muted">Inclui 1 bolo personalizado + 6 docinhos à escolha. A decoração segue o tema do bolo.</p>
+        <a class="btn btn-primary" style="width:100%" href="https://wa.me/5543988192974?text=Ol%C3%A1%21%20Gostaria%20de%20montar%20um%20Kit%20Festa%20Docinhos%20da%20La%20Petsserie.">Pedir Kit Festa Docinhos</a>
+      </div>
+      <div class="card rose">
+        <p class="small">Kit Festa Completo</p>
+        <h3>R$ 79,90</h3>
+        <p class="muted"><b>Uma festa completa para celebrar em grande estilo.</b></p>
+        <p class="muted">Inclui 1 bolo personalizado + 2 cupcakes mini + 4 docinhos + 4 coxinhas pet. A decoração segue o tema do bolo.</p>
+        <a class="btn btn-primary" style="width:100%" href="https://wa.me/5543988192974?text=Ol%C3%A1%21%20Gostaria%20de%20montar%20um%20Kit%20Festa%20Completo%20da%20La%20Petsserie.">Pedir Kit Festa Completo</a>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="produtos" style="background:var(--soft);padding-top:0">
+  <div class="container">
+    <p class="small">Produtos individuais</p>
+    <h2>Cardápio da confeitaria</h2>
+    <div class="cards-3" id="confGrid" style="margin-top:24px"></div>
+  </div>
+</section>
 </main><footer><b>La Petsserie — Alimentação Natural, Petiscos, Confeitaria Pet e Consulta Nutricional Veterinária em Londrina/PR</b><p>WhatsApp: (43) 98819-2974 • Instagram: @la_petsserie • Segunda a sábado, 9h às 19h.</p></footer><script>
 function toggleMobileMenu(){document.getElementById('mobileNav').classList.toggle('open')}
 function wpp(text){return 'https://wa.me/5543988192974?text='+encodeURIComponent(text)}
 function brl(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
 
-const conf=[['Cupcake Tradicional','R$ 15,90'],['Cupcake Nome Pet','R$ 17,90'],['Cupcake Foto Pet Premium','R$ 19,90'],['Cupcake Mini','R$ 8,90'],['Bolo Jardim Encantado','R$ 39,90'],['Bolo Petisco Premium','R$ 49,90'],['Bolo Foto Pet','R$ 49,90'],['Brigadeiro Pet','R$ 4,00'],['Beijinho Pet','R$ 4,00'],['Coxinha Pet','R$ 4,00'],['Kit Festa Mini','R$ 65,90'],['Kit Festa Docinhos','R$ 60,90'],['Kit Festa Completo','R$ 60,90']];
+const conf=[['Cupcake Tradicional','R$ 15,90'],['Cupcake Nome Pet','R$ 17,90'],['Cupcake Foto Pet Premium','R$ 19,90'],['Cupcake Mini','R$ 8,90'],['Bolo Jardim Encantado','R$ 39,90'],['Bolo Petisco Premium','R$ 49,90'],['Bolo Foto Pet','R$ 49,90'],['Brigadeiro Pet','R$ 4,00'],['Beijinho Pet','R$ 4,00'],['Coxinha Pet','R$ 4,00'],['Kit Festa Mini','R$ 65,90'],['Kit Festa Docinhos','R$ 60,90'],['Kit Festa Completo','R$ 79,90']];
 document.getElementById('confGrid').innerHTML=conf.map(p=>`<div class="product"><h3>${p[0]}</h3><p style="color:var(--brand);font-weight:900">${p[1]}</p><a class="btn btn-outline" style="width:100%" href="${wpp('Olá! Gostaria de pedir '+p[0]+'.')}">Pedir</a></div>`).join('');
 </script></body></html>

@@ -378,9 +378,45 @@ function renderCart(){
 function sendCart(){
   const cart=getCart();
   if(!cart.length){alert('Sua sacolinha está vazia.');return}
-  const total=cart.reduce((t,i)=>t+i.price*i.qty,0);
-  const text=cart.map((i,idx)=>`${idx+1}. ${i.qty}x ${i.name}${i.detail?' - '+i.detail:''} - ${brl(i.price*i.qty)}`).join('\\n');
-  window.open(wpp(`Olá! Gostaria de fazer este pedido na La Petsserie:\\n${text}\\nTotal aproximado: ${brl(total)}\\n\\nPode me passar as opções de entrega/retirada e pagamento?`),'_blank');
+
+  const groups={'MENUS NATURAIS':[],'PETISCOS':[],'CONFEITARIA PET':[]};
+
+  cart.forEach(i=>{
+    const line=`• ${i.qty}x ${i.name}${i.detail ? ' — ' + i.detail : ''}`;
+    const n=(i.name||'').toLowerCase();
+
+    if(n.includes('menu') || n.includes('degustação')){
+      groups['MENUS NATURAIS'].push(line);
+    } else if(n.includes('kit festa') || n.includes('cupcake') || n.includes('bolo') || n.includes('docinho') || n.includes('coxinha')){
+      groups['CONFEITARIA PET'].push(line);
+    } else {
+      groups['PETISCOS'].push(line);
+    }
+  });
+
+  const total=cart.reduce((t,i)=>t+(i.price*i.qty),0);
+
+  let msg='Olá! Gostaria de fazer este pedido na La Petsserie.
+
+';
+
+  Object.entries(groups).forEach(([title,items])=>{
+    if(items.length){
+      msg += title + '
+';
+      msg += items.join('
+') + '
+
+';
+    }
+  });
+
+  msg += 'Total aproximado: ' + brl(total) + '
+
+';
+  msg += 'Gostaria de verificar entrega/retirada e formas de pagamento.';
+
+  window.open(wpp(msg),'_blank');
 }
 document.addEventListener('DOMContentLoaded',renderCart);
 

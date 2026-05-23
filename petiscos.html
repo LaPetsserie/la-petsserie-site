@@ -78,8 +78,28 @@ function toggleMobileMenu(){document.getElementById('mobileNav').classList.toggl
 function wpp(text){return 'https://wa.me/5543988192974?text='+encodeURIComponent(text)}
 function brl(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
 
-const petiscos=[['Biscoito de Frango com Cenoura e Açafrão','images/petisco-frango.png'],['Biscoito de Batata Doce com Frango','images/petisco-abacaxi.png'],['Biscoito Refresco de Melancia','images/petisco-melancia.png'],['Biscoito Refresco de Abacaxi','images/petisco-abobora.png'],['Biscoito de Banana com Especiarias','images/petisco-banana.png'],['Biscoito de Abóbora com Coco','images/petiscos-geral.png'],['Biscoito Mix La Petsserie','images/petisco-batata.png']];
-document.getElementById('petiscosGrid').innerHTML=petiscos.map(p=>`<div class="product"><img src="${p[1]}" alt="${p[0]}"><h3>${p[0]}</h3><p style="color:var(--brand);font-weight:900">R$ 22,90</p><div class="add-row"><input class="qty-input" id="qty-pet-${p[0].replaceAll(' ','-')}" type="number" min="1" value="1"><button class="btn btn-outline" onclick="addToCart('${p[0]}',22.9,'',document.getElementById('qty-pet-${p[0].replaceAll(' ','-')}').value)">Adicionar</button></div></div>`).join('');
+const petiscos=[
+  {name:'Biscoito de Frango com Cenoura e Açafrão',img:'images/petisco-frango.png'},
+  {name:'Biscoito de Batata Doce com Frango',img:'images/petisco-abacaxi.png'},
+  {name:'Biscoito Refresco de Melancia',img:'images/petisco-melancia.png'},
+  {name:'Biscoito Refresco de Abacaxi',img:'images/petisco-abobora.png'},
+  {name:'Biscoito de Banana com Especiarias',img:'images/petisco-banana.png'},
+  {name:'Biscoito de Abóbora com Coco',img:'images/petiscos-geral.png'},
+  {name:'Biscoito Mix La Petsserie',img:'images/petisco-batata.png'}
+];
+document.getElementById('petiscosGrid').innerHTML=petiscos.map(p=>`
+  <div class="product">
+    <img src="${p.img}" alt="${p.name}">
+    <h3>${p.name}</h3>
+    <p class="muted">Petisco artesanal natural, sem conservantes artificiais e sem corantes artificiais.</p>
+    <p style="color:var(--brand);font-weight:900">R$ 22,90</p>
+    <div class="qty-stepper">
+      <button type="button" onclick="stepQty('qty-pet-${p.name.replaceAll(' ','-')}',-1)">−</button>
+      <input class="qty-input" id="qty-pet-${p.name.replaceAll(' ','-')}" type="number" min="1" value="1" aria-label="Quantidade">
+      <button type="button" onclick="stepQty('qty-pet-${p.name.replaceAll(' ','-')}',1)">+</button>
+    </div>
+    <button class="btn btn-primary" style="width:100%;margin-top:10px" type="button" onclick="addToCart('${p.name}',22.90,'',document.getElementById('qty-pet-${p.name.replaceAll(' ','-')}').value)">Adicionar à sacolinha</button>
+  </div>`).join('');
 
 function getCart(){try{return JSON.parse(localStorage.getItem('laPetsserieCart')||'[]')}catch(e){return []}}
 function saveCart(cart){localStorage.setItem('laPetsserieCart',JSON.stringify(cart));renderCart();}
@@ -110,45 +130,47 @@ function sendCart(){
   const cart=getCart();
   if(!cart.length){alert('Sua sacolinha está vazia.');return}
 
-  const groups={'MENUS NATURAIS':[],'PETISCOS':[],'CONFEITARIA PET':[]};
+  const groups={
+    'MENUS NATURAIS':[],
+    'PETISCOS':[],
+    'CONFEITARIA PET':[]
+  };
 
   cart.forEach(i=>{
-    const line=`• ${i.qty}x ${i.name}${i.detail ? ' — ' + i.detail : ''}`;
-    const n=(i.name||'').toLowerCase();
+    const name=(i.name||'').toLowerCase();
+    const detail=i.detail ? ' - ' + i.detail : '';
+    const line='- ' + i.qty + 'x ' + i.name + detail;
 
-    if(n.includes('menu') || n.includes('degustação')){
+    if(name.includes('menu') || name.includes('degustação')){
       groups['MENUS NATURAIS'].push(line);
-    } else if(n.includes('kit festa') || n.includes('cupcake') || n.includes('bolo') || n.includes('docinho') || n.includes('coxinha')){
+    } else if(name.includes('kit festa') || name.includes('cupcake') || name.includes('bolo') || name.includes('brigadeiro') || name.includes('beijinho') || name.includes('coxinha')){
       groups['CONFEITARIA PET'].push(line);
     } else {
       groups['PETISCOS'].push(line);
     }
   });
 
-  const total=cart.reduce((t,i)=>t+(i.price*i.qty),0);
+  const total=cart.reduce((t,i)=>t+(Number(i.price)||0)*(Number(i.qty)||0),0);
 
-  let msg='Olá! Gostaria de fazer este pedido na La Petsserie.
-
-';
+  let msg='Olá! Gostaria de fazer este pedido na La Petsserie.\n\n';
 
   Object.entries(groups).forEach(([title,items])=>{
     if(items.length){
-      msg += title + '
-';
-      msg += items.join('
-') + '
-
-';
+      msg += title + '\n';
+      msg += items.join('\n') + '\n\n';
     }
   });
 
-  msg += 'Total aproximado: ' + brl(total) + '
-
-';
+  msg += 'Total aproximado: ' + brl(total) + '\n\n';
   msg += 'Gostaria de verificar entrega/retirada e formas de pagamento.';
 
   window.open(wpp(msg),'_blank');
 }
 document.addEventListener('DOMContentLoaded',renderCart);
 
+function stepQty(id,delta){
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.value=Math.max(1,(Number(el.value)||1)+delta);
+}
 </script></body></html>

@@ -379,47 +379,49 @@ function sendCart(){
   const cart=getCart();
   if(!cart.length){alert('Sua sacolinha está vazia.');return}
 
-  const groups={'MENUS NATURAIS':[],'PETISCOS':[],'CONFEITARIA PET':[]};
+  const groups={
+    'MENUS NATURAIS':[],
+    'PETISCOS':[],
+    'CONFEITARIA PET':[]
+  };
 
   cart.forEach(i=>{
-    const line=`• ${i.qty}x ${i.name}${i.detail ? ' — ' + i.detail : ''}`;
-    const n=(i.name||'').toLowerCase();
+    const name=(i.name||'').toLowerCase();
+    const detail=i.detail ? ' - ' + i.detail : '';
+    const line='- ' + i.qty + 'x ' + i.name + detail;
 
-    if(n.includes('menu') || n.includes('degustação')){
+    if(name.includes('menu') || name.includes('degustação')){
       groups['MENUS NATURAIS'].push(line);
-    } else if(n.includes('kit festa') || n.includes('cupcake') || n.includes('bolo') || n.includes('docinho') || n.includes('coxinha')){
+    } else if(name.includes('kit festa') || name.includes('cupcake') || name.includes('bolo') || name.includes('brigadeiro') || name.includes('beijinho') || name.includes('coxinha')){
       groups['CONFEITARIA PET'].push(line);
     } else {
       groups['PETISCOS'].push(line);
     }
   });
 
-  const total=cart.reduce((t,i)=>t+(i.price*i.qty),0);
+  const total=cart.reduce((t,i)=>t+(Number(i.price)||0)*(Number(i.qty)||0),0);
 
-  let msg='Olá! Gostaria de fazer este pedido na La Petsserie.
-
-';
+  let msg='Olá! Gostaria de fazer este pedido na La Petsserie.\n\n';
 
   Object.entries(groups).forEach(([title,items])=>{
     if(items.length){
-      msg += title + '
-';
-      msg += items.join('
-') + '
-
-';
+      msg += title + '\n';
+      msg += items.join('\n') + '\n\n';
     }
   });
 
-  msg += 'Total aproximado: ' + brl(total) + '
-
-';
+  msg += 'Total aproximado: ' + brl(total) + '\n\n';
   msg += 'Gostaria de verificar entrega/retirada e formas de pagamento.';
 
   window.open(wpp(msg),'_blank');
 }
 document.addEventListener('DOMContentLoaded',renderCart);
 
+function stepQty(id,delta){
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.value=Math.max(1,(Number(el.value)||1)+delta);
+}
 </script>
 </body>
 </html>

@@ -40,6 +40,13 @@ select,input{width:100%;border:1px solid var(--line);border-radius:999px;padding
   .menu-order-controls select,.menu-order-controls input,.menu-order-controls button{width:100%;height:46px}
 }
 
+
+.conf-visual-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+.conf-visual-card{background:#fff;border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.035)}
+.conf-visual-card img{height:260px;width:100%;object-fit:cover}
+.conf-visual-card .body{padding:18px}
+@media(max-width:980px){.conf-visual-grid{grid-template-columns:1fr}.conf-visual-card img{height:310px}}
+
 </style></head><body><header>
   <div class="topbar container">
     <div><a href="index.html"><p class="brand-title">La Petsserie</p></a><p class="brand-sub">menus naturais, petiscos e confeitaria pet</p></div>
@@ -60,7 +67,41 @@ select,input{width:100%;border:1px solid var(--line);border-radius:999px;padding
   </nav>
 </header><main>
 <section class="hero"><div class="container grid-2"><div><span class="pill">Confeitaria Pet</span><h1>Cupcakes, bolos e comemorações para pets.</h1><p class="lead">Confeitaria pet artesanal para celebrar com carinho, estética premium e ingredientes pensados para o seu pet.</p><a class="btn btn-primary" href="#produtos">Ver produtos</a></div><div class="hero-photo"><img src="images/cupcake-pet.png" alt="Confeitaria pet La Petsserie"></div></div></section>
-<section><div class="container"><div class="cards-3"><div class="product"><img src="images/cupcake-pet.png" alt="Cupcakes artesanais"><h3>Cupcakes artesanais</h3><p class="muted">Opções tradicionais e personalizadas.</p></div><div class="product"><img src="images/bolo-pet.png" alt="Bolos para pets"><h3>Bolos para comemorar</h3><p class="muted">Bolos delicados para datas especiais.</p></div><div class="product"><img src="images/cupcake-foto-pet.png" alt="Foto Pet"><h3>Personalização Foto Pet</h3><p class="muted">Cupcakes e bolos com a carinha do pet.</p></div></div></div></section>
+<section>
+  <div class="container">
+    <div class="section-title">
+      <p class="small">Destaques</p>
+      <h2>Conheça algumas opções da confeitaria.</h2>
+      <p class="muted">Imagens representativas para ajudar na escolha do seu pedido.</p>
+    </div>
+    <div class="conf-visual-grid">
+      <div class="conf-visual-card">
+        <img src="images/bolo-pet.png" alt="Bolo Jardim Encantado">
+        <div class="body"><h3>Bolo Jardim Encantado</h3><p class="muted">Bolo com decoração floral delicada.</p></div>
+      </div>
+      <div class="conf-visual-card">
+        <img src="images/bolo-petisco-premium.png" alt="Bolo Petisco Premium">
+        <div class="body"><h3>Bolo Petisco Premium</h3><p class="muted">Bolo com petiscos em volta para uma comemoração especial.</p></div>
+      </div>
+      <div class="conf-visual-card">
+        <img src="images/cupcake-nome-pet.png" alt="Cupcake Nome Pet">
+        <div class="body"><h3>Cupcake Nome Pet</h3><p class="muted">Cupcake personalizado com o nome do pet.</p></div>
+      </div>
+      <div class="conf-visual-card">
+        <img src="images/bolo-personalizado.png" alt="Bolo Personalizado">
+        <div class="body"><h3>Bolo Personalizado</h3><p class="muted">Decoração personalizada conforme o tema escolhido.</p></div>
+      </div>
+      <div class="conf-visual-card">
+        <img src="images/cupcake-foto-pet.png" alt="Cupcake Foto Pet Premium">
+        <div class="body"><h3>Cupcake Foto Pet Premium</h3><p class="muted">Personalização com a foto do pet.</p></div>
+      </div>
+      <div class="conf-visual-card">
+        <img src="images/cupcake-pet.png" alt="Cupcake Tradicional">
+        <div class="body"><h3>Cupcakes Artesanais</h3><p class="muted">Opções tradicionais e personalizadas.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 <section id="kits-festa" style="background:var(--soft)">
   <div class="container">
     <div class="section-title">
@@ -118,8 +159,33 @@ function toggleMobileMenu(){document.getElementById('mobileNav').classList.toggl
 function wpp(text){return 'https://wa.me/5543988192974?text='+encodeURIComponent(text)}
 function brl(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
 
-const conf=[['Cupcake Tradicional','R$ 15,90'],['Cupcake Nome Pet','R$ 17,90'],['Cupcake Foto Pet Premium','R$ 19,90'],['Cupcake Mini','R$ 8,90'],['Bolo Jardim Encantado','R$ 39,90'],['Bolo Petisco Premium','R$ 49,90'],['Bolo Foto Pet','R$ 49,90'],['Brigadeiro Pet','R$ 4,00'],['Beijinho Pet','R$ 4,00'],['Coxinha Pet','R$ 4,00'],['Kit Festa Mini','R$ 65,90'],['Kit Festa Docinhos','R$ 60,90'],['Kit Festa Completo','R$ 79,90']];
-document.getElementById('confGrid').innerHTML=conf.map(p=>{const price=Number(p[1].replace('R$','').replace(',','.').trim());const id=p[0].replaceAll(' ','-');return `<div class="product"><h3>${p[0]}</h3><p style="color:var(--brand);font-weight:900">${p[1]}</p><div class="add-row"><input class="qty-input" id="qty-conf-${id}" type="number" min="1" value="1"><button class="btn btn-outline" onclick="addToCart('${p[0]}',${price},'',document.getElementById('qty-conf-${id}').value)">Adicionar</button></div></div>`}).join('');
+const conf=[
+  {name:'Cupcake Tradicional',price:15.90,desc:'Cupcake pet artesanal para comemorações especiais.'},
+  {name:'Cupcake Nome Pet',price:17.90,desc:'Cupcake personalizado com o nome do pet.'},
+  {name:'Cupcake Foto Pet Premium',price:19.90,desc:'Cupcake personalizado com a foto do pet.'},
+  {name:'Cupcake Mini',price:8.90,desc:'Versão mini para complementar kits e comemorações.'},
+  {name:'Bolo Jardim Encantado',price:39.90,desc:'Bolo com decoração floral delicada.'},
+  {name:'Bolo Petisco Premium',price:49.90,desc:'Bolo rodeado de petiscos naturais.'},
+  {name:'Bolo Foto Pet',price:49.90,desc:'Bolo personalizado com foto do cachorro.'},
+  {name:'Bolo Personalizado',price:45.00,desc:'A partir de R$ 45,00. Personalizado conforme o tema escolhido pelo tutor.'},
+  {name:'Brigadeiro Pet',price:4.00,desc:'Docinho pet artesanal.'},
+  {name:'Beijinho Pet',price:4.00,desc:'Docinho pet artesanal.'},
+  {name:'Coxinha Pet',price:4.00,desc:'Salgadinho pet artesanal.'}
+];
+document.getElementById('confGrid').innerHTML=conf.map(p=>{
+  const id=p.name.replaceAll(' ','-');
+  return `<div class="product">
+    <h3>${p.name}</h3>
+    <p class="muted">${p.desc}</p>
+    <p style="color:var(--brand);font-weight:900">${p.name==='Bolo Personalizado'?'A partir de R$ 45,00':brl(p.price)}</p>
+    <div class="qty-stepper">
+      <button type="button" onclick="stepQty('qty-conf-${id}',-1)">−</button>
+      <input class="qty-input" id="qty-conf-${id}" type="number" min="1" value="1" aria-label="Quantidade">
+      <button type="button" onclick="stepQty('qty-conf-${id}',1)">+</button>
+    </div>
+    <button class="btn btn-primary" style="width:100%;margin-top:10px" type="button" onclick="addToCart('${p.name}',${p.price},p.name==='Bolo Personalizado'?'valor a partir de R$ 45,00':'',document.getElementById('qty-conf-${id}').value)">Adicionar à sacolinha</button>
+  </div>`
+}).join('');
 
 function getCart(){try{return JSON.parse(localStorage.getItem('laPetsserieCart')||'[]')}catch(e){return []}}
 function saveCart(cart){localStorage.setItem('laPetsserieCart',JSON.stringify(cart));renderCart();}
@@ -150,45 +216,47 @@ function sendCart(){
   const cart=getCart();
   if(!cart.length){alert('Sua sacolinha está vazia.');return}
 
-  const groups={'MENUS NATURAIS':[],'PETISCOS':[],'CONFEITARIA PET':[]};
+  const groups={
+    'MENUS NATURAIS':[],
+    'PETISCOS':[],
+    'CONFEITARIA PET':[]
+  };
 
   cart.forEach(i=>{
-    const line=`• ${i.qty}x ${i.name}${i.detail ? ' — ' + i.detail : ''}`;
-    const n=(i.name||'').toLowerCase();
+    const name=(i.name||'').toLowerCase();
+    const detail=i.detail ? ' - ' + i.detail : '';
+    const line='- ' + i.qty + 'x ' + i.name + detail;
 
-    if(n.includes('menu') || n.includes('degustação')){
+    if(name.includes('menu') || name.includes('degustação')){
       groups['MENUS NATURAIS'].push(line);
-    } else if(n.includes('kit festa') || n.includes('cupcake') || n.includes('bolo') || n.includes('docinho') || n.includes('coxinha')){
+    } else if(name.includes('kit festa') || name.includes('cupcake') || name.includes('bolo') || name.includes('brigadeiro') || name.includes('beijinho') || name.includes('coxinha')){
       groups['CONFEITARIA PET'].push(line);
     } else {
       groups['PETISCOS'].push(line);
     }
   });
 
-  const total=cart.reduce((t,i)=>t+(i.price*i.qty),0);
+  const total=cart.reduce((t,i)=>t+(Number(i.price)||0)*(Number(i.qty)||0),0);
 
-  let msg='Olá! Gostaria de fazer este pedido na La Petsserie.
-
-';
+  let msg='Olá! Gostaria de fazer este pedido na La Petsserie.\n\n';
 
   Object.entries(groups).forEach(([title,items])=>{
     if(items.length){
-      msg += title + '
-';
-      msg += items.join('
-') + '
-
-';
+      msg += title + '\n';
+      msg += items.join('\n') + '\n\n';
     }
   });
 
-  msg += 'Total aproximado: ' + brl(total) + '
-
-';
+  msg += 'Total aproximado: ' + brl(total) + '\n\n';
   msg += 'Gostaria de verificar entrega/retirada e formas de pagamento.';
 
   window.open(wpp(msg),'_blank');
 }
 document.addEventListener('DOMContentLoaded',renderCart);
 
+function stepQty(id,delta){
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.value=Math.max(1,(Number(el.value)||1)+delta);
+}
 </script></body></html>
